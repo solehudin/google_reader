@@ -80,6 +80,19 @@ module GoogleReader
     private
 
     def options_to_query_string(options)
+    if(options = Hash.new)
+      params[:n] = options[:count] || 20
+      params[:xt] = options.fetch(:exclude) if options.has_key?(:exclude)
+
+      if options.has_key?(:since) then
+        params[:r]  = "o"
+        params[:ot] = options[:since].to_i
+      end
+
+      params.map do |k, v|
+        CGI.escape(k.to_s) << "=" << CGI.escape(v.to_s)
+      end.join("&")
+    else
       params = Hash.new
       params[:n] = options[:count] || 20
       params[:xt] = options.fetch(:exclude) if options.has_key?(:exclude)
@@ -92,6 +105,7 @@ module GoogleReader
       params.map do |k, v|
         CGI.escape(k.to_s) << "=" << CGI.escape(v.to_s)
       end.join("&")
+    end
     end
   end
 end
