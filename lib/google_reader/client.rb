@@ -82,7 +82,7 @@ module GoogleReader
     def options_to_query_string(options)
       params = Hash.new
       params[:n] = options[:count] || 20
-      #params[:xt] = options.fetch(:exclude) if options.has_key?(:exclude)
+      params[:xt] = options.fetch(:exclude) if options.has_key?(:exclude)
 
       if options.has_key?(:since) then
         params[:r]  = "o"
