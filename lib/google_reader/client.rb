@@ -16,6 +16,8 @@ module GoogleReader
     end
 
     def self.authenticate_using_token(token)
+      access_token = User.access_token.first
+      token = access_token
       new(token)
     end
 
